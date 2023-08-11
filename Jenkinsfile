@@ -5,11 +5,10 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                gitCheckout(
+                checkout(
                     branch: 'main',
                     url: 'https://github.com/vinodpal161191/java-springboot-jenkins-shared-lib.git'
                 )
-                //git branch: 'main', url: 'https://github.com/vinodpal161191/java-springboot-jenkins-shared-lib.git'
             }  
         }
     }
