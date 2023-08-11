@@ -35,7 +35,8 @@ pipeline{
         stage("sonar: Code analysis Test"){
             when{ expression {params.action == 'create'} }
             steps{
-                codeAnalysisSonar()
+                def sonarCredentialsId = 'sonar-api'
+                codeAnalysisSonar(sonarCredentialsId)
             }  
         }
     }
