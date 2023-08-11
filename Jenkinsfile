@@ -32,7 +32,7 @@ pipeline{
             }  
         }
 
-        stage("mvn: Integration Test"){
+        stage("sonar: Code analysis Test"){
             when{ expression {params.action == 'create'} }
             steps{
                 codeAnalysisSonar()
