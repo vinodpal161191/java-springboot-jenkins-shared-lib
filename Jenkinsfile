@@ -41,5 +41,15 @@ pipeline{
                 }
             }  
         }
+
+        stage("sonar: Quality Gate Test"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    def sonarCredentialsId = 'sonar-api'
+                    qualityGateSonar(sonarCredentialsId)
+                }
+            }  
+        }
     }
 }
