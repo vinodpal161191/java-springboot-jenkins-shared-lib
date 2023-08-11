@@ -31,5 +31,12 @@ pipeline{
                 mvnIntegrationTest()
             }  
         }
+
+        stage("mvn: Integration Test"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                codeAnalysisSonar()
+            }  
+        }
     }
 }
