@@ -16,6 +16,12 @@ pipeline{
             steps{
                 mvnUnitTest()
             }  
+        }  
+
+        stage("mvn: Integration Test"){
+            steps{
+                mvnIntegrationTest()
+            }  
         }
     }
 }
