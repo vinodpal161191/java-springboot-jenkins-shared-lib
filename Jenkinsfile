@@ -11,5 +11,11 @@ pipeline{
                 )
             }  
         }
+
+        stage("mvn: Unit Test"){
+            steps{
+                mvnUnitTest()
+            }  
+        }
     }
 }
