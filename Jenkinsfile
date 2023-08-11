@@ -52,7 +52,7 @@ pipeline{
             }  
         }
 
-        stage("sonar: Quality Gate Test"){
+        stage("mvn: Build"){
             when{ expression {params.action == 'create'} }
             steps{
                 script{
