@@ -5,6 +5,9 @@ pipeline{
 
     parameters{
         choice(name: 'action', choices: 'create\ndestroy', description: 'Choose Create/Destroy')
+        string(name: 'registryUser', description: 'Enter Image Registry User', defaultValue: 'iamvinodpal')
+        string(name: 'appName', description: 'Enter appName', defaultValue: 'javaapp')
+        string(name: 'tagName', description: 'Enter Image Tag Name', defaultValue: 'v1')
     }
 
     stages{
@@ -57,6 +60,18 @@ pipeline{
             steps{
                 script{
                     mvnBuild()
+                }
+            }  
+        }
+
+        stage("docker: Image Build"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    def registryUser = ${params.registryUser}
+                    def appName = ${params.appName}
+                    def tagName = ${params.tagName}
+                    dockerImageBuild(registryUser, appName, tagName)
                 }
             }  
         }
