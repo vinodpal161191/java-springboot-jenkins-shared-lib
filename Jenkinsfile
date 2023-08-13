@@ -68,9 +68,9 @@ pipeline{
             when{ expression {params.action == 'create'} }
             steps{
                 script{
-                    def registryUser = ${params.registryUser}
-                    def appName = ${params.appName}
-                    def tagName = ${params.tagName}
+                    def registryUser = "${params.registryUser}"
+                    def appName = "${params.appName}"
+                    def tagName = "${params.tagName}"
                     dockerImageBuild(registryUser, appName, tagName)
                 }
             }  
