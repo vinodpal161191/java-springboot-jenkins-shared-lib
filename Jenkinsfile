@@ -76,6 +76,18 @@ pipeline{
             }  
         }
 
+        stage("trivy: Scan Image"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    def registryUser = "${params.registryUser}"
+                    def appName = "${params.appName}"
+                    def tagName = "${params.tagName}"
+                    trivyScanImage(registryUser, appName, tagName)
+                }
+            }  
+        }
+
         
     }
 }
