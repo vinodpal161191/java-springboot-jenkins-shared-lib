@@ -6,7 +6,7 @@ pipeline{
     parameters{
         choice(name: 'action', choices: 'create\ndestroy', description: 'Choose Create/Destroy')
         string(name: 'awsAccountId', description: 'Enter AWS Account Id', defaultValue: '554723871506')
-        string(name: 'ECR Repository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
+        string(name: 'ecrRepository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
         string(name: 'awsRegion', description: 'Enter AWS Region', defaultValue: 'ap-south-1')
     }
 
