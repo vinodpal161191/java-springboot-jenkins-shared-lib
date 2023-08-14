@@ -92,7 +92,10 @@ pipeline{
             when{ expression {params.action == 'create'} }
             steps{
                 script{
-                    dockerImagePush("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                    def dockerLoginCommand = "aws ecr get-login-password --region ${awsRegion} | docker login --username AWS --password-stdin ${awsAccountId}.dkr.ecr.${awsRegion}.amazonaws.com"
+                    sh dockerLoginCommand
+                    sh "docker push ${awsAccountId}.dkr.ecr.${awsRegion}.amazonaws.com/${ecrRepository}:latest"
+                    // dockerImagePush("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
                 }
             }  
         }
