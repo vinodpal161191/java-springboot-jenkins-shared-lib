@@ -5,9 +5,15 @@ pipeline{
 
     parameters{
         choice(name: 'action', choices: 'create\ndestroy', description: 'Choose Create/Destroy')
-        string(name: 'awsAccountId', description: 'Enter AWS Account Id', defaultValue: '554723871506')
-        string(name: 'ecrRepository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
-        string(name: 'awsRegion', description: 'Enter AWS Region', defaultValue: 'ap-south-1')
+        // string(name: 'awsAccountId', description: 'Enter AWS Account Id', defaultValue: '554723871506')
+        // string(name: 'ecrRepository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
+        // string(name: 'awsRegion', description: 'Enter AWS Region', defaultValue: 'ap-south-1')
+    }
+
+    environment {
+        awsAccountId = '554723871506'
+        awsRegion = 'ap-south-1'
+        ecrRepository = 'java-repository'
     }
 
     stages{
