@@ -64,54 +64,6 @@ pipeline{
             }  
         }
 
-        stage("docker: Image Build"){
-            when{ expression {params.action == 'create'} }
-            steps{
-                script{
-                    def registryUser = "${params.registryUser}"
-                    def appName = "${params.appName}"
-                    def tagName = "${params.tagName}"
-                    dockerImageBuild(registryUser, appName, tagName)
-                }
-            }  
-        }
-
-        stage("trivy: Scan Image"){
-            when{ expression {params.action == 'create'} }
-            steps{
-                script{
-                    def registryUser = "${params.registryUser}"
-                    def appName = "${params.appName}"
-                    def tagName = "${params.tagName}"
-                    trivyScanImage(registryUser, appName, tagName)
-                }
-            }  
-        }
-
-        stage("docker: Push Image"){
-            when{ expression {params.action == 'create'} }
-            steps{
-                script{
-                    def registryUser = "${params.registryUser}"
-                    def appName = "${params.appName}"
-                    def tagName = "${params.tagName}"
-                    dockerImagePush(registryUser, appName, tagName)
-                }
-            }  
-        }
-
-        stage("docker: Clean Image"){
-            when{ expression {params.action == 'destroy'} }
-            steps{
-                script{
-                    def registryUser = "${params.registryUser}"
-                    def appName = "${params.appName}"
-                    def tagName = "${params.tagName}"
-                    dockerImageCleanUp(registryUser, appName, tagName)
-                }
-            }  
-        }
-
         
     }
 }
