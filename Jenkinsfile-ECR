@@ -5,9 +5,9 @@ pipeline{
 
     parameters{
         choice(name: 'action', choices: 'create\ndestroy', description: 'Choose Create/Destroy')
-        string(name: 'registryUser', description: 'Enter Image Registry User', defaultValue: 'iamvinodpal')
-        string(name: 'appName', description: 'Enter appName', defaultValue: 'javaapp')
-        string(name: 'tagName', description: 'Enter Image Tag Name', defaultValue: 'v1')
+        string(name: 'awsAccountId', description: 'Enter AWS Account Id', defaultValue: '554723871506')
+        string(name: 'ECR Repository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
+        string(name: 'awsRegion', description: 'Enter AWS Region', defaultValue: 'ap-south-1')
     }
 
     stages{
@@ -60,6 +60,42 @@ pipeline{
             steps{
                 script{
                     mvnBuild()
+                }
+            }  
+        }
+
+        stage("docker: Image Build ECR"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    dockerImageBuild("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                }
+            }  
+        }
+
+        stage("trivy: Scan Image"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    trivyScanImage("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                }
+            }  
+        }
+
+        stage("docker: Push Image ECR"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    dockerImagePush("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                }
+            }  
+        }
+
+        stage("docker: Clean up Image ECR"){
+            when{ expression {params.action == 'destroy'} }
+            steps{
+                script{
+                    dockerImageCleanUp("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
                 }
             }  
         }
