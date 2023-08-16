@@ -120,7 +120,7 @@ pipeline{
         }
 
         stage("docker: Clean up Image ECR"){
-            when{ expression {params.action == 'destroy'} }
+            when{ expression {params.action == 'create'} }
             steps{
                 script{
                     dockerImageCleanUp("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
@@ -139,10 +139,9 @@ pipeline{
                           terraform init 
                           terraform plan -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.awsRegion}' --var-file=./config/terraform.tfvars
                           terraform apply -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.awsRegion}' --var-file=./config/terraform.tfvars --auto-approve
-
-                          aws eks --region ${params.awsRegion} update-kubeconfig --name ${params.cluster}
                       """
                   }
+                  sh "aws eks --region ${params.awsRegion} update-kubeconfig --name ${params.cluster}"
                 }
             }
         }
