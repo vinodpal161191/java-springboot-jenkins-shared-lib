@@ -91,12 +91,12 @@ pipeline{
             when{ expression {params.action == 'create'} }
             steps{
                 script{
-                    sh """
-                    aws configure set aws_access_key_id "$ACCESS_KEY"
-                    aws configure set aws_secret_access_key "$SECRET_KEY"
-                    aws configure set region "${params.awsRegion}"
+                    // sh """
+                    // aws configure set aws_access_key_id "$ACCESS_KEY"
+                    // aws configure set aws_secret_access_key "$SECRET_KEY"
+                    // aws configure set region "${params.awsRegion}"
        
-                    """
+                    // """
                      dockerImagePush("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
                 }
             }  
