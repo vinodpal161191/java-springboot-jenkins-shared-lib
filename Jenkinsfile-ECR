@@ -26,66 +26,66 @@ pipeline{
             }  
         }
 
-        // stage("mvn: Unit Test"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         mvnUnitTest()
-        //     }  
-        // }  
+        stage("mvn: Unit Test"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                mvnUnitTest()
+            }  
+        }  
 
-        // stage("mvn: Integration Test"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         mvnIntegrationTest()
-        //     }  
-        // }
+        stage("mvn: Integration Test"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                mvnIntegrationTest()
+            }  
+        }
 
-        // stage("sonar: Code analysis Test"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         script{
-        //             def sonarCredentialsId = 'sonarqube-secret'
-        //             codeAnalysisSonar(sonarCredentialsId)
-        //         }
-        //     }  
-        // }
+        stage("sonar: Code analysis Test"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    def sonarCredentialsId = 'sonarqube-secret'
+                    codeAnalysisSonar(sonarCredentialsId)
+                }
+            }  
+        }
 
-        // stage("sonar: Quality Gate Test"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         script{
-        //             def sonarCredentialsId = 'sonarqube-secret'
-        //             qualityGateSonar(sonarCredentialsId)
-        //         }
-        //     }  
-        // }
+        stage("sonar: Quality Gate Test"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    def sonarCredentialsId = 'sonarqube-secret'
+                    qualityGateSonar(sonarCredentialsId)
+                }
+            }  
+        }
 
-        // stage("mvn: Build"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         script{
-        //             mvnBuild()
-        //         }
-        //     }  
-        // }
+        stage("mvn: Build"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    mvnBuild()
+                }
+            }  
+        }
 
-        // stage("docker: Image Build ECR"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         script{
-        //             dockerImageBuild("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
-        //         }
-        //     }  
-        // }
+        stage("docker: Image Build ECR"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    dockerImageBuild("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                }
+            }  
+        }
 
-        // stage("trivy: Scan Image"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         script{
-        //             trivyScanImage("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
-        //         }
-        //     }  
-        // }
+        stage("trivy: Scan Image"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                script{
+                    trivyScanImage("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                }
+            }  
+        }
 
         stage("docker: Push Image ECR"){
             when{ expression {params.action == 'create'} }
