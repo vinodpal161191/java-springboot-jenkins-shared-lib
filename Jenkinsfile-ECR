@@ -5,15 +5,14 @@ pipeline{
 
     parameters{
         choice(name: 'action', choices: 'create\ndestroy', description: 'Choose Create/Destroy')
-        // string(name: 'awsAccountId', description: 'Enter AWS Account Id', defaultValue: '554723871506')
-        // string(name: 'ecrRepository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
-        // string(name: 'awsRegion', description: 'Enter AWS Region', defaultValue: 'ap-south-1')
+        string(name: 'awsAccountId', description: 'Enter AWS Account Id', defaultValue: '554723871506')
+        string(name: 'ecrRepository', description: 'Enter ECR Repository', defaultValue: 'java-repository')
+        string(name: 'awsRegion', description: 'Enter AWS Region', defaultValue: 'ap-south-1')
     }
 
     environment {
-        awsAccountId = '554723871506'
-        awsRegion = 'ap-south-1'
-        ecrRepository = 'java-repository'
+        ACCESS_KEY = credentials('AWS_ACCESS_KEY_ID')
+        SECRET_KEY = credentials('AWS_ACCESS_SECRET_KEY_ID')
     }
 
     stages{
@@ -92,10 +91,7 @@ pipeline{
             when{ expression {params.action == 'create'} }
             steps{
                 script{
-                    def dockerLoginCommand = "aws ecr get-login-password --region ${awsRegion} | docker login --username AWS --password-stdin ${awsAccountId}.dkr.ecr.${awsRegion}.amazonaws.com"
-                    sh dockerLoginCommand
-                    sh "docker push ${awsAccountId}.dkr.ecr.${awsRegion}.amazonaws.com/${ecrRepository}:latest"
-                    // dockerImagePush("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
+                     dockerImagePush("${params.awsAccountId}", "${params.ecrRepository}", "${params.awsRegion}")
                 }
             }  
         }
