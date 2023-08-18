@@ -10,3 +10,7 @@ logging:
 spring:
   application:
     name: minikube-sample
+
+server:
+  port: 8084
+
