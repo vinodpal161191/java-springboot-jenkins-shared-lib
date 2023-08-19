@@ -150,8 +150,9 @@ pipeline{
                       """
                   }
                   sh "aws eks --region ${params.awsRegion} update-kubeconfig --name ${params.cluster}"
+                  env.EKS_CLUSTER_CREATED = true
                 }
-                env.EKS_CLUSTER_CREATED = true
+                
             }
         }
         
