@@ -1,53 +1,30 @@
-# kubernetes-configmap-reload
-
-Pre-requisites:
---------
-    - Install Git
-    - Install Maven
-    - Install Docker
-    - EKS Cluster
-    
-Clone code from github:
--------
-    git clone https://github.com/vikash-kumar01/spring-cloud-kubernetes.git
-    cd spring-cloud-kubernetes/kubernetes-configmap-reload
-    
-Build Maven Artifact:
--------
-    mvn clean install
+## What is it?
+This source code is an Spring Boot web application).
  
-Build Docker image for Springboot Application
---------------
-    docker build -t vikashashoke/kubernetes-configmap-reload .
-  
-Docker login
--------------
-    docker login
-    
-Push docker image to dockerhub
------------
-    docker push vikashashoke/kubernetes-configmap-reload
-    
-Deploy Spring Application:
---------
-    kubectl apply -f kubernetes-configmap.yml
-    
-Check Deployments, Pods and Services:
--------
+Tested with
+* Docker 19.03
+* Ubuntu 19
+* Java 8 or Java 11
+* Spring Boot 2.2.4.RELEASE
+* Maven
 
-    kubectl get deploy
-    kubectl get pods
-    kubectl get svc
-    
-Now Goto Loadbalancer and check whether service comes Inservice or not, If it comes Inservice copy DNS Name of Loadbalancer and Give in WebUI
+For explanation, please visit this article - [Docker and Spring Boot](https://mkyong.com/docker/docker-spring-boot-examples/)
 
-    http://a70a89c22e06f49f3ba2b3270e974e29-1311314938.us-west-2.elb.amazonaws.com:8080/home/data
-    
-![2](https://user-images.githubusercontent.com/63221837/82123471-44f5f300-97b7-11ea-9d10-438cf9cc98a0.png)
+## How to run this?
+```bash
+$ git clone https://github.com/mkyong/docker-java
+$ cd docker-spring-boot
+$ mvn clean package
+$ java -jar target/spring-boot-web.jar
 
-Now we can cleanup by using below commands:
---------
-    kubectl delete deploy kubernetes-configmap-reload
-    kubectl delete svc kubernetes-configmap-reload
-# springboot_k8s_application
-# mrdevops_java_app
+  access http://localhost:8080
+
+//dockerize
+
+// create a docker image
+$ sudo docker build -t spring-boot:1.0 .
+// run it
+$ sudo docker run -d -p 8080:8080 -t spring-boot:1.0
+
+  access http://localhost:8080
+```
