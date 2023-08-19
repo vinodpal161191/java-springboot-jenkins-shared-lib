@@ -24,15 +24,15 @@ pipeline{
                 cleanWs()
             }  
         }
-        // stage("Git Checkout"){
-        //     when{ expression {params.action == 'create'} }
-        //     steps{
-        //         gitCheckout(
-        //             branch: 'main',
-        //             url: 'https://github.com/vinodpal161191/java-springboot-jenkins-shared-lib.git'
-        //         )
-        //     }  
-        // }
+        stage("Git Checkout"){
+            when{ expression {params.action == 'create'} }
+            steps{
+                gitCheckout(
+                    branch: 'main',
+                    url: 'https://github.com/vinodpal161191/java-springboot-jenkins-shared-lib.git'
+                )
+            }  
+        }
 
         stage("mvn: Unit Test"){
             when{ expression {params.action == 'create'} }
