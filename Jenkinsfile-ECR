@@ -137,7 +137,7 @@ pipeline{
         }
 
         stage('Create EKS Cluster : Terraform'){
-            when { expression {  params.action == 'create' && return env.EKS_CLUSTER_CREATED == false } }
+            when { expression {  return env.EKS_CLUSTER_CREATED == false && params.action == 'create' } }
             steps{
                 script{
 
@@ -157,7 +157,7 @@ pipeline{
         }
         
         stage('Deployment on EKS Cluster'){
-            when { expression {  params.action == 'create' && return env.EKS_CLUSTER_CREATED == true } }
+            when { expression {  return env.EKS_CLUSTER_CREATED == true && params.action == 'create' } }
             steps{
                 script{
                   
@@ -181,7 +181,7 @@ pipeline{
         }  
 
         stage('Destroy EKS Cluster : Terraform'){
-            when { expression {  params.action == 'destroy' && return env.EKS_CLUSTER_CREATED == true } }
+            when { expression {  return env.EKS_CLUSTER_CREATED == true && params.action == 'destroy' } }
             steps{
                 script{
 
