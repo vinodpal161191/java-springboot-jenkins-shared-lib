@@ -137,7 +137,14 @@ pipeline{
         }
 
         stage('Create EKS Cluster : Terraform'){
-            when { expression {  return env.EKS_CLUSTER_CREATED == false && params.action == 'create' } }
+            when { 
+                expression { 
+                    echo "EKS_CLUSTER_CREATED: ${env.EKS_CLUSTER_CREATED}"
+                    echo "action: ${params.action}"
+                    return env.EKS_CLUSTER_CREATED == false && params.action == 'create'
+                }
+            }
+            // when { expression {  return env.EKS_CLUSTER_CREATED == false && params.action == 'create' } }
             steps{
                 script{
 
