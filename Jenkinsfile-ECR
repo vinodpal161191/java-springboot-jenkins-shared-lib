@@ -195,7 +195,7 @@ pipeline{
         }  
 
         stage('Destroy EKS Cluster : Terraform'){
-            when { expression {  return env.EKS_CLUSTER_CREATED == 'true' && params.action == 'destroy' } }
+            when { expression {  return env.EKS_CLUSTER_CREATED == 'false' && params.action == 'destroy' } }
             steps{
                 script{
 
