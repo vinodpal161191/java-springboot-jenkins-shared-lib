@@ -203,7 +203,7 @@ pipeline{
                       sh """
                           
                           terraform init 
-                          terraform destroy --auto-approve
+                          terraform destroy -var 'access_key=$ACCESS_KEY' -var 'secret_key=$SECRET_KEY' -var 'region=${params.awsRegion}' --auto-approve
                           
 
                       """
