@@ -1,3 +1,7 @@
+# terraform.tfvars
+
+cluster_name = "demo-cluster"
+region = "ap-south-1"
 
 aws_eks_cluster_config = {
 
